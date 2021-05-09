@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "discovered-weekly"
+version = "0.1.0"
+description = ""
+authors = ["Ethan Rosenthal <ethan@ethanrosenthal.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+spotipy = "^2.18.0"
+python-dotenv = "^0.17.1"
+
+[tool.poetry.dev-dependencies]
+black = "^21.5b0"
+ipython = "^7.23.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

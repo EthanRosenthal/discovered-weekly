@@ -1,0 +1,38 @@
+name: discovered-weekly
+
+on:
+  workflow_dispatch:
+  schedule: 
+   # Run every Tuesday at 0 UTC
+    - cron: '0 0 * * 2'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8.8'
+    - name: Install poetry
+      uses: abatilo/actions-poetry@v2.0.0
+      with:
+        poetry-version: 1.1.5
+    - name: Install dependencies
+      run: |
+        poetry config virtualenvs.create false
+        poetry install
+    - name: Run discovered weekly
+      env:
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+        REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+        USERNAME: ${{ secrets.USERNAME }}
+        DISCOVER_WEEKLY_PLAYLIST_ID: ${{ secrets.DISCOVER_WEEKLY_PLAYLIST_ID }}
+        ALL_DISCOVERED_PLAYLIST_ID: ${{ secrets.ALL_DISCOVERED_PLAYLIST_ID }}
+      run: |
+        python discovered_weekly.py
