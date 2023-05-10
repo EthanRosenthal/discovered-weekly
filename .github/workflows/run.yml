@@ -20,11 +20,11 @@ jobs:
     - name: Install poetry
       uses: abatilo/actions-poetry@v2.0.0
       with:
-        poetry-version: 1.1.5
+        poetry-version: 1.4.2
     - name: Install dependencies
       run: |
         poetry config virtualenvs.create false
-        poetry install
+        poetry install --only main
     - name: Run discovered weekly
       env:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
